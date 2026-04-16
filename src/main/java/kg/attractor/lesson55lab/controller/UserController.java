@@ -30,13 +30,12 @@ public class UserController {
         if (principal == null) {
             return "redirect:/auth/login";
         }
-
         String email = principal.getName();
-        User user = userDao.findAll().stream()
-                .filter(u -> u.getEmail().equals(email))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userDao.findByEmail(email);
 
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
         model.addAttribute("user", user);
         return "profile";
     }
@@ -44,10 +43,7 @@ public class UserController {
     @GetMapping("/edit")
     public String editPage(Model model, Principal principal) {
         String email = principal.getName();
-        User user = userDao.findAll().stream()
-                .filter(u -> u.getEmail().equals(email))
-                .findFirst()
-                .get();
+        User user = userDao.findByEmail(email);
         model.addAttribute("user", user);
         return "edit_profile";
     }
