@@ -1,9 +1,7 @@
 package kg.attractor.lesson55lab.dao;
 
-import kg.attractor.lesson55lab.model.User;
+import kg.attractor.lesson55lab.model.Vacancy;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.Optional;
 
-public interface UserDao extends JpaRepository<User, Long> {
-    User findByEmail(String email);
+public interface VacancyDao extends JpaRepository<Vacancy, Long> {
 }
